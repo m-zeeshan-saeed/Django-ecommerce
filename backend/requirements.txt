@@ -4,3 +4,7 @@ celery==5.5.3
 redis==7.1.0
 djangorestframework
 pillow
+gunicorn
+uvicorn
+psycopg2-binary
+python-dotenv
