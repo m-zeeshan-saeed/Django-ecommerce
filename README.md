@@ -260,5 +260,3 @@ django-ecommerce/
 ```
 
 ---
-
-✅ This README gives **complete step-by-step guide** from local setup → Docker → PostgreSQL → Redis → Celery → Pytest → GitHub Actions.
