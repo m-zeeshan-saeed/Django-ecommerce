@@ -1,32 +1,21 @@
 FROM python:3.12-slim
 
-ENV PYTHONDONTWRITEBYTECODE=1
-ENV PYTHONUNBUFFERED=1
-
 WORKDIR /app
 
-
-RUN apt-get update && apt-get install -y \
+# OS dependencies
+RUN apt-get update && apt-get install -y --no-install-recommends \
     build-essential \
     libpq-dev \
-    curl \
     && rm -rf /var/lib/apt/lists/*
 
-COPY requirements.txt /app/
-RUN pip install --upgrade pip
-RUN pip install -r requirements.txt
+# Install Python libs
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
 
-
-COPY . /app/
-
-
-ENV DJANGO_SETTINGS_MODULE=greatkart.settings
-RUN mkdir -p /app/staticfiles
-
-
-RUN python manage.py collectstatic --noinput
+# Copy project
+COPY . .
 
 EXPOSE 8000
 
-
-CMD ["gunicorn", "greatkart.wsgi:application", "--bind", "0.0.0.0:8000", "--workers", "4"]
+# Default command: Django Dev Server
+CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
