@@ -9,3 +9,4 @@ uvicorn
 psycopg2-binary
 python-dotenv
 pytest-django
+dj-database-url>=1.0.0

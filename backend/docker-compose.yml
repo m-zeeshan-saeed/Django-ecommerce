@@ -11,6 +11,8 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: 1234
       POSTGRES_DB: greatkart_db
+      POSTGRES_HOST: db
+      POSTGRES_PORT: 5432
       DATABASE_URL: postgres://postgres:1234@db:5432/greatkartdb
       CELERY_BROKER_URL: redis://redis:6379/0
 
