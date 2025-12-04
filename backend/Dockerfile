@@ -1,21 +1,12 @@
-FROM python:3.12-slim
+FROM python:3.14-slim
 
 WORKDIR /app
 
-# OS dependencies
-RUN apt-get update && apt-get install -y --no-install-recommends \
-    build-essential \
-    libpq-dev \
-    && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get install -y postgresql-client gcc libpq-dev && rm -rf /var/lib/apt/lists/*
 
-# Install Python libs
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy project
 COPY . .
 
-EXPOSE 8000
-
-# Default command: Django Dev Server
-CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+CMD [ "./entrypoint.sh"]
