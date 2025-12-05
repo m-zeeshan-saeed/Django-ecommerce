@@ -2,7 +2,6 @@ services:
   web:
     build: .
     container_name: greatkart_web
-    command: python manage.py runserver 0.0.0.0:8000
     volumes:
       - .:/app
     ports:
@@ -17,11 +16,34 @@ services:
     depends_on:
       db:
         condition: service_healthy
-        restart: true
       redis:
         condition: service_started
     env_file:
       - .env
+    develop:
+      watch:
+        - action: sync
+          path: .
+          target: /app
+          ignore:
+            - __pycache__/
+            - "*.pyc"
+            - "*.pyo"
+            - "*.pyd"
+            - ".git/"
+            - ".gitignore"
+            - venv/
+            - env/
+            - "*.sqlite3"
+            - "*.db"
+            - ".pytest_cache/"
+            - ".coverage"
+            - "htmlcov/"
+            - "*.log"
+            - ".DS_Store"
+            - "*.md"
+        - action: rebuild
+          path: requirements.txt
 
   celery:
     build: .
@@ -41,6 +63,30 @@ services:
         condition: service_healthy
       redis:
         condition: service_started
+    develop:
+      watch:
+        - action: sync
+          path: .
+          target: /app
+          ignore:
+            - __pycache__/
+            - "*.pyc"
+            - "*.pyo"
+            - "*.pyd"
+            - ".git/"
+            - ".gitignore"
+            - venv/
+            - env/
+            - "*.sqlite3"
+            - "*.db"
+            - ".pytest_cache/"
+            - ".coverage"
+            - "htmlcov/"
+            - "*.log"
+            - ".DS_Store"
+            - "*.md"
+        - action: rebuild
+          path: requirements.txt
 
   db:
     image: postgres:17
