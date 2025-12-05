@@ -29,7 +29,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
-ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", "localhost").split(",")
+
 
 # Application definition
 
@@ -76,15 +76,7 @@ WSGI_APPLICATION = 'greatkart.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
-# if os.environ.get("CI") or os.environ.get("TEST"):
-#     # Use SQLite in tests / CI
-#     DATABASES = {
-#         "default": {
-#             "ENGINE": "django.db.backends.sqlite3",
-#             "NAME": ":memory:",
-#         }
-#     }
-# else:
+
 
 DATABASES = {
     'default': {
